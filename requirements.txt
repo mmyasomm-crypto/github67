@@ -1,0 +1,14 @@
+# Runtime dependencies (Railway installs this file; Python version comes from .python-version).
+fastapi>=0.115,<1
+uvicorn>=0.30,<1
+python-multipart>=0.0.9,<1      # required by FastAPI for UploadFile / Form
+# Windows gets the DirectML build (GPU: AMD/Intel/NVIDIA via DirectX 12) - it also contains the CPU provider,
+# so the server falls back to CPU automatically if no GPU/driver is usable. Other platforms (Railway = Linux) use plain CPU.
+# (Install only ONE of onnxruntime / onnxruntime-directml; if you switch: pip uninstall onnxruntime onnxruntime-directml first.)
+onnxruntime-directml>=1.18,<2; sys_platform == "win32"
+# The four pins below are exactly what CI / tests/backend/golden.json were generated with (see requirements-dev.txt),
+# so production runs the numerics that were tested instead of whatever is newest on install day.
+onnxruntime==1.24.4; sys_platform != "win32"
+numpy==2.4.4
+Pillow==12.1.1
+opencv-python-headless==4.13.0.92

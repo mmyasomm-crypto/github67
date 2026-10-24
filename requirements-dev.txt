@@ -1,0 +1,13 @@
+# Test-only dependencies. Install AFTER requirements.txt:  pip install -r requirements.txt -r requirements-dev.txt
+#
+# The four pins below are what tests/backend/golden.json was generated with. The golden pipeline test
+# hashes pixels produced by ONNX Runtime + OpenCV + NumPy + Pillow, so ANY of them changing can change
+# the hashes. To upgrade one: bump the pin, run `UPDATE_GOLDEN=1 pytest tests/backend`, review, commit golden.json.
+onnxruntime==1.24.4; sys_platform != "win32"
+numpy==2.4.4
+opencv-python-headless==4.13.0.92
+Pillow==12.1.1
+
+# Test runner + FastAPI TestClient transport (Starlette's TestClient needs httpx).
+pytest>=8,<9
+httpx>=0.27,<1
